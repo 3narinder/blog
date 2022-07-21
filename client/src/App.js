@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import NavBar from "../src/screens/components/NavBar";
 import Home from "./screens/Home";
+import Post from "./screens/components/Post";
+import SinglePost from "./screens/components/SinglePost";
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/singlepost" element={<SinglePost />} />
       </Routes>
     </BrowserRouter>
   );
