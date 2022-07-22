@@ -1,11 +1,13 @@
 const express = require("express");
 const DBconnect = require("./config/database");
+const cors = require("cors");
 const app = express();
 
 DBconnect();
 
 // middlewares
 app.use(express.json());
+app.use(cors());
 
 // routes
 const postRouter = require("../api/routes/postRoutes");
