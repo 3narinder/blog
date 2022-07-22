@@ -11,7 +11,7 @@ const Sidebar = () => {
         </div>
         <div className="w-96 h-auto mt-4">
           <img
-            className="w-full h-full"
+            className="w-full h-full object-center"
             src="https://themegoods-cdn-pzbycso8wng.stackpathdns.com/grandblog/demo/wp-content/uploads/2015/11/aboutme.jpg"
             alt=""
           />

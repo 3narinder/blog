@@ -1,4 +1,5 @@
 import React from "react";
+import { AiFillStar } from "react-icons/ai";
 
 const Post = ({ img }) => {
   return (
@@ -15,7 +16,10 @@ const Post = ({ img }) => {
 
         <div className="flex items-center justify-between mx-1">
           <div className="text-xl font-bold cursor-pointer">Lorem ipsum dolor sit amet</div>
-          <div className="text-sm text-gray-500">1 hour ago</div>
+          <div className="flex items-center text-sm text-red-500">
+            <AiFillStar className="mr-1" />
+            <div>5</div>
+          </div>
         </div>
       </div>
 

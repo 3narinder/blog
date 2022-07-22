@@ -1,11 +1,12 @@
 import Sidebar from "./Sidebar";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { AiFillStar } from "react-icons/ai";
 
 const SinglePost = () => {
   return (
     <div className="flex justify-between mt-4 mb-20 mx-10">
-      <div className="mr-16 w-3/4">
+      <div className="mr-36 w-3/4">
         <div className="w-full h-1/2 mb-4">
           <img
             className="w-full h-full object-center rounded-md"
@@ -22,12 +23,15 @@ const SinglePost = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="text-sm">
+        <div className="flex items-center">
+          <div className="text-sm mr-16">
             Author:
             <b className="ml-2">Safak</b>
           </div>
-          <span className="text-sm">1 day ago</span>
+          <span className="flex items-center justify-center text-red-500">
+            <AiFillStar className="mr-1" />
+            <div>5</div>
+          </span>
         </div>
         <p className="font-normal text-sm leading-6 text-gray-500 mt-4 overflow-hidden text-ellipsis">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste error quibusdam ipsa quis
