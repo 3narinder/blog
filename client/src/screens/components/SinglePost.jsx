@@ -17,6 +17,11 @@ const SinglePost = () => {
     dispatch(getSinglePost(id));
   }, [id]);
 
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   dispatch(deletePost(id));
+  // };
+
   const postsState = useSelector((state) => state.postsState);
   const { singlePost } = postsState;
 
@@ -33,10 +38,13 @@ const SinglePost = () => {
 
         <div className="flex items-center justify-between mb-3">
           <div className="text-3xl font-bold capitalize">{singlePost?.title}</div>
-          <div className="flex items-center text-xl">
+          {/* <div className="flex items-center text-xl">
             <BiEdit className="mr-4 text-gray-500" />
-            <RiDeleteBin5Fill className="text-red-500" />
-          </div>
+            <RiDeleteBin5Fill
+              onClick={submitHandler}
+              className="text-red-500 cursor-pointer hover:scale-105"
+            />
+          </div> */}
         </div>
 
         <div className="flex items-center">

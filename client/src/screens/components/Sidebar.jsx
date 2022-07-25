@@ -1,7 +1,19 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../redux/category/category.action";
+
 const Sidebar = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  const categoryState = useSelector((state) => state.categoryState);
+  const { categories } = categoryState;
   return (
     <div className="flex self-start flex-col w-1/3 items-center pb-6 rounded-lg bg-gray-100">
       {/* sidebar post */}
@@ -27,13 +39,10 @@ const Sidebar = () => {
         <div className="capitalize m-3 p-1 w-full border-y-2 text-center text-lg leading-5 font-semibold">
           categories
         </div>
-        <ul className="mb-5 pl-20 text-base">
-          <li className="inline-block w-1/2 mt-4 cursor-pointer">Lifestyle</li>
-          <li className="inline-block w-1/2 mt-4 cursor-pointer">Music</li>
-          <li className="inline-block w-1/2 mt-4 cursor-pointer">Sports</li>
-          <li className="inline-block w-1/2 mt-4 cursor-pointer">Nature</li>
-          <li className="inline-block w-1/2 mt-4 cursor-pointer">Tech</li>
-          <li className="inline-block w-1/2 mt-4 cursor-pointer">Health</li>
+        <ul className="mb-5 pl-20 text-base capitalize">
+          {categories?.map((category) => (
+            <li className="inline-block w-1/2 mt-4 cursor-pointer">{category?.name}</li>
+          ))}
         </ul>
       </div>
 

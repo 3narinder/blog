@@ -20,9 +20,12 @@ const Navigation = () => {
           </li>
         </Link>
 
-        <li className="mr-6">
-          <button>Add Post</button>
-        </li>
+        <Link to="/addpost">
+          <li className="mr-6">
+            <button>Add Post</button>
+          </li>
+        </Link>
+
         <li className="mr-6">
           <button>Authors</button>
         </li>
