@@ -18,7 +18,7 @@ const Posts = () => {
   const { posts } = postsState;
   return (
     <div>
-      <div className="w-full flex justify-between pr-36 flex-wrap">
+      <div className="w-full flex justify-between pr-24 flex-wrap">
         {posts?.map((post) => (
           <Link to={`/singlepost/${post._id}`}>
             <Post post={post} />

@@ -26,11 +26,14 @@ const Navigation = () => {
           </li>
         </Link>
 
+        <Link to="/dashboard">
+          <li className="mr-6">
+            <button>Dashboard</button>
+          </li>
+        </Link>
+
         <li className="mr-6">
           <button>Authors</button>
-        </li>
-        <li className="mr-6">
-          <button>Latest</button>
         </li>
       </ul>
 

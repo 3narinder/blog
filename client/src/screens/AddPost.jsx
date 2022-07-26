@@ -11,6 +11,8 @@ const AddPost = () => {
   const [content, setcontent] = useState("");
   const [category, setcategory] = useState("");
 
+  const [author, setauthor] = useState("");
+
   useEffect(() => {
     dispatch(getCategories());
   }, []);
@@ -18,7 +20,7 @@ const AddPost = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    let body = { category, title, content };
+    let body = { category, title, content, author };
     dispatch(addPost(body));
   };
 
@@ -39,20 +41,32 @@ const AddPost = () => {
           />
         </div>
 
-        <div className=" flex gap-2 mt-4">
-          <label className="text-lg font-semibold">Category</label>
-          <select
-            onChange={(e) => setcategory(e.target.value)}
-            className="rounded-sm px-2 py-1 border-none focus:outline-none text-gray-700 capitalize"
-          >
-            <option selected disabled value="">
-              Select category
-            </option>
+        <div className="flex items-center justify-between">
+          <div className=" flex gap-2 mt-4">
+            <label className="text-lg font-semibold">Category</label>
+            <select
+              onChange={(e) => setcategory(e.target.value)}
+              className="rounded-sm px-2 py-1 border-none focus:outline-none text-gray-700 capitalize"
+            >
+              <option selected disabled value="">
+                Select category
+              </option>
 
-            {categories?.map((category) => (
-              <option className="capitalize text-sm">{category.name}</option>
-            ))}
-          </select>
+              {categories?.map((category) => (
+                <option className="capitalize text-sm">{category.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2 mt-4">
+            <label className="text-lg font-semibold">Author</label>
+            <input
+              className=" block p-1 w-full border-none rounded-sm capitalize focus:outline-none"
+              type="text"
+              placeholder="add author"
+              onChange={(e) => setauthor(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="mt-6 ">

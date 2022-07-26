@@ -7,6 +7,7 @@ import NavBar from "../src/screens/components/NavBar";
 import Home from "./screens/Home";
 import SinglePost from "./screens/components/SinglePost";
 import AddPost from "../src/screens/AddPost.jsx";
+import Dashboard from "./screens/Dashboard";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/singlepost/:id" element={<SinglePost />} />
           <Route path="/addpost" element={<AddPost />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </Provider>

@@ -55,14 +55,14 @@ export const addPost = (body) => async (dispatch) => {
 };
 
 // delete post
-
 export const deletePost = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_REQUEST });
 
-    const { data } = await axios.delete(`${BACK_URL}/blogpost//delete/${id}`);
+    const { data } = await axios.delete(`${BACK_URL}/blogpost/delete/${id}`);
 
     dispatch({ type: DELETE_SUCCESS, payload: data });
+    window.location.reload();
   } catch (error) {
     dispatch({ type: DELETE_FAIL, error: error?.response?.data?.msg || error?.msg });
   }
