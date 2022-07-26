@@ -8,7 +8,8 @@ import Home from "./screens/Home";
 import SinglePost from "./screens/components/SinglePost";
 import AddPost from "../src/screens/AddPost.jsx";
 import Dashboard from "./screens/Dashboard";
-
+import Register from "./screens/Register";
+import Login from "./screens/Login";
 function App() {
   return (
     <Provider store={store}>
@@ -20,6 +21,8 @@ function App() {
           <Route path="/singlepost/:id" element={<SinglePost />} />
           <Route path="/addpost" element={<AddPost />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </Provider>
