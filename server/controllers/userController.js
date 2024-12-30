@@ -161,8 +161,6 @@ const googleAuth = async (req, res) => {
         google_auth: true,
       });
 
-      console.log(user, `<--- user`);
-
       await user.save();
     }
 

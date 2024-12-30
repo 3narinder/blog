@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 server/my-mern-blog-1993-firebase-adminsdk-upykv-94ac38de34.json
+*.env

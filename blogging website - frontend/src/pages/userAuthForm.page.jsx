@@ -79,7 +79,11 @@ const UserAuthForm = ({ type }) => {
       toast.error(error);
     } else if (status === "succeeded") {
       toast.success(
-        `${type === "log-in" ? "Logged in" : "Signed up"} successfully!`
+        `${type === "log-in" ? "Logged in" : "Signed up"} successfully!`,
+        {
+          // Keep the toast visible for 3 seconds
+          duration: 3000,
+        }
       );
       formRef.current?.reset();
       navigate("/");

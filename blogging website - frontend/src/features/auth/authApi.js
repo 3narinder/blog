@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000", // Replace with your API base URL
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
 });
 
 export const loginUser = async (formData) => {
