@@ -2,10 +2,17 @@ import React from "react";
 import AnimationWrapper from "../common/page-animation";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { setBlog, setEditorState } from "../features/blog/blogSlice";
+import {
+  publishBlog,
+  setBlog,
+  setEditorState,
+} from "../features/blog/blogSlice";
 import Tag from "./tags.component";
+import { useNavigate } from "react-router-dom";
 
 const PublishFrom = () => {
+  const navigate = useNavigate();
+
   let characterLimit = 200;
 
   let tagLimit = 10;
@@ -16,6 +23,10 @@ const PublishFrom = () => {
     blog,
     blog: { content, title, banner, tags, des },
   } = useSelector((state) => state.blog);
+
+  const { user } = useSelector((state) => state.auth);
+
+  const accessToken = user?.access_token;
 
   const handleCloseEvent = () => {
     dispatch(setEditorState("editor"));
@@ -54,6 +65,57 @@ const PublishFrom = () => {
       } else {
         toast.error("Tag limit reached.");
       }
+    }
+  };
+
+  const publishBlogHandler = async (e) => {
+    // Prevent multiple clicks if the button is disabled
+    if (e.target.className.includes("disable")) {
+      return;
+    }
+
+    // Validate title
+    if (!title?.length) {
+      return toast.error("Write blog title before publishing");
+    }
+
+    // Validate description
+    if (!des?.length || des?.length > characterLimit) {
+      return toast.error(
+        `Write a description about your blog within ${characterLimit} characters to publish`
+      );
+    }
+
+    // Validate tags
+    if (!tags?.length) {
+      return toast.error("Enter at least 1 tag to help us rank your blog");
+    }
+
+    const loadingToast = toast.loading("Publishing...");
+
+    // Add "disable" class to prevent multiple submissions
+    e.target.classList.add("disable");
+
+    try {
+      // Blog object to be published
+      const blogObj = { title, banner, des, content, tags, draft: false };
+
+      // Dispatch the thunk action to publish the blog
+      await dispatch(publishBlog({ blogData: blogObj, accessToken })).unwrap();
+
+      // Success message
+      toast.success("Blog published successfully");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    } catch (error) {
+      // Display error message
+      toast.error(error?.message || "Failed to publish the blog");
+    } finally {
+      // Remove "disable" class and dismiss the loading toast
+      e.target.classList.remove("disable");
+      toast.dismiss(loadingToast);
     }
   };
 
@@ -131,7 +193,9 @@ const PublishFrom = () => {
             {tagLimit - tags?.length} tag left
           </p>
 
-          <button className="btn-dark px-8 mt-8">Publish</button>
+          <button onClick={publishBlogHandler} className="btn-dark px-8 mt-8">
+            Publish
+          </button>
         </div>
       </section>
     </AnimationWrapper>

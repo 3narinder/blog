@@ -110,7 +110,7 @@ const userSchema = mongoose.Schema(
     },
     blogs: {
       type: [Schema.Types.ObjectId],
-      ref: "blogs",
+      ref: "Blog",
       default: [],
     },
   },
@@ -121,4 +121,4 @@ const userSchema = mongoose.Schema(
   }
 );
 
-export default mongoose.model("users", userSchema);
+export default mongoose.model("User", userSchema);

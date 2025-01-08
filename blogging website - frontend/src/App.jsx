@@ -21,10 +21,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<HomePage />} /> */}
         <Route path="/editor" element={<Editor />} />
 
         <Route path="/" element={<Navbar />}>
+          <Route path="/" element={<HomePage />} />
           <Route path="login" element={<UserAuthForm type="log-in" />} />
           <Route path="signup" element={<UserAuthForm type="sign-Up" />} />
         </Route>

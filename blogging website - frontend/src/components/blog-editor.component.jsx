@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../imgs/logo.png";
 import AnimationWrapper from "../common/page-animation";
 import defaultBanner from "../imgs/blog banner.png";
@@ -7,14 +7,19 @@ import { uploadImage } from "../common/aws";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  publishBlog,
   setBlog,
   setEditorState,
-  setTextEditor,
 } from "../features/blog/blogSlice";
 import EditorJS from "@editorjs/editorjs";
 import { Tools } from "./tools.component";
 
 const BlogEditor = () => {
+  const { user } = useSelector((state) => state.auth);
+
+  const accessToken = user?.access_token;
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const blogBannerRef = useRef();
 
@@ -22,7 +27,7 @@ const BlogEditor = () => {
 
   const {
     blog,
-    blog: { content, title },
+    blog: { content, title, des, tags },
   } = useSelector((state) => state.blog);
 
   useEffect(() => {
@@ -100,8 +105,6 @@ const BlogEditor = () => {
       textEditorRef.current
         .save()
         .then((data) => {
-          console.log(data);
-
           if (data?.blocks?.length) {
             dispatch(setBlog({ ...blog, content: data }));
             dispatch(setEditorState("publish"));
@@ -117,6 +120,43 @@ const BlogEditor = () => {
     }
   };
 
+  const handleSaveDraft = async (e) => {
+    // Prevent multiple clicks
+    if (e.target.className.includes("disable")) {
+      return;
+    }
+
+    if (!title?.length) {
+      return toast.error("Write a blog title before saving as draft.");
+    }
+
+    const loadingToast = toast.loading("Saving draft...");
+
+    // Disable the button temporarily
+    e.target.classList.add("disable");
+
+    try {
+      // Only include title and draft:true for the draft
+      const blogObj = {
+        title,
+        draft: true,
+      };
+
+      // Dispatch the saveDraft action
+      await dispatch(publishBlog({ blogData: blogObj, accessToken })).unwrap();
+
+      toast.success("Draft saved successfully!");
+      setTimeout(() => {
+        navigate("/"); // Redirect to the homepage or drafts page
+      }, 500);
+    } catch (error) {
+      toast.error(error.message || "Failed to save draft.");
+    } finally {
+      e.target.classList.remove("disable");
+      toast.dismiss(loadingToast);
+    }
+  };
+
   return (
     <>
       <nav className="navbar">
@@ -125,14 +165,16 @@ const BlogEditor = () => {
         </Link>
 
         <p className="max-md:hidden text-black line-clamp-1 w-full">
-          {blog.title.length ? blog.title : "New blog"}
+          {blog?.title?.length ? blog.title : "New blog"}
         </p>
 
         <div className="flex gap-4 ml-auto">
           <button className="btn-dark py-2" onClick={handlePublishEvent}>
             Publish
           </button>
-          <button className="btn-light">Save Draft</button>
+          <button className="btn-light" onClick={handleSaveDraft}>
+            Save Draft
+          </button>
         </div>
       </nav>
 

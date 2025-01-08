@@ -9,8 +9,6 @@ import InlineCode from "@editorjs/inline-code";
 import { uploadImage } from "../common/aws";
 
 const uploadImageByUrl = async (url) => {
-  console.log("uploadImageByUrl called with URL:", url); // Add this
-
   if (!url || typeof url !== "string") {
     console.error("Invalid URL:", url);
     return {

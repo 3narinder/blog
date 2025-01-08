@@ -124,6 +124,7 @@ const login = async (req, res) => {
   }
 };
 
+//Google auth
 const googleAuth = async (req, res) => {
   const { access_token } = req.body;
 
@@ -170,6 +171,22 @@ const googleAuth = async (req, res) => {
     return res
       .status(500)
       .json({ error: "Failed to authenticate with Google." });
+  }
+};
+
+//get all users
+export const getAllUsers = async (req, res) => {
+  try {
+    // Fetch specific fields from the database
+    const users = await User.find(
+      {},
+      "personal_info.username personal_info.fullname"
+    );
+
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
